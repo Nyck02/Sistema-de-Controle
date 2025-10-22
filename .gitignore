@@ -1,0 +1,14 @@
+cat > .gitignore <<EOF
+# Compilados
+build/
+*.o
+*.exe
+*.so
+
+# Dados (opcional: comente se quiser versionar os CSVs)
+
+# IDEs
+.vscode/
+*.swp
+*~
+EOF
