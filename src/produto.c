@@ -3,28 +3,19 @@
 #include <string.h>
 #include "interface.h" 
 #include "produto.h"
-#define MAX_PRODUTOS 100
-
-
-
 
 
 void MostrarMenuProdutos();
+
+
 
 int AnalisarProduto(int codigo){
 // Objetivo: verificar se o codigo já está cadastrado ou não
 //O que é necessário: somente o id do produto
 //O que vai sair: a permissão do cadastro ou não 
-
 //Verificação: 
-
-
-
-//Se retornar algo, quer dizer que o código não foi cadastrado (está liberado para cadastro)
-
-
+//Se retornar nada, quer dizer que o código não foi cadastrado (está liberado para cadastro)
 }
-
 
 void CadastrarProduto( int codigo){
     //objetivo: armazenar os dados do produto
@@ -37,75 +28,30 @@ void CadastrarProduto( int codigo){
 scanf("%s", &novo_produto.descricao); 
 //Lembrar !!! Fazer estrutura de descrição com nome, validade, categoria e etc
 
-
 printf("Digite o preço do produto:")
 scanf(" %lf", &novo_produto.preco);
-
 
 printf("Digite a quantidade do produto em estoque:");
 scanf("%d", &novo_produto.estoque);
 
 //Botão "cadastrar"
+}
+
+void ListarProdutos(){
+
+
+}
+
+void ConsultarProduto(){
+
+
+}
+
+void RemoverProduto(){
 
 
 }
 
 
-
-int main(){
-
-
-    int codigo;
-
-
-    struct produto *p;
-    p = malloc(sizeof(struct produto));
-
-
-
-
-Produto novo_produto;
-
-
-// Cadastro do produto
-
-
-printf("Digite o codigo do produto: ");
-scanf ("%d", &novo_id);
-
-
-//Verificação
-
-//Chamando a função para analisar 
-AnalisarProduto(novo_id);
-
-//Se nada retornar 
-//O codigo já existe
-
-printf("ERRO: O código já está cadastrado no sistema, tente outro: ");
-//Retornar para o menu 
-
-//retornou algo
-//O codigo não existe, cadastrar novo produto
-
-//chamando a função de cadastro
-
-cadastro(novo_id);
-
-//retorna botão "cadastrar" clicado
-
-printf("O produto %d foi cadastrado com sucesso!\n", novo_produto.id); //confirmar exatamente que o produto x foi cadastrado
-
-//retornar para menu principal
-
-
-return 0;
-
-
-
-
-
-
-}
 
 
