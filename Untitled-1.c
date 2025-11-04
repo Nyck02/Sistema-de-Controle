@@ -7,7 +7,17 @@
 
 
 
+typedef struct {
+    int id; // Um número de identificação único para cada produto.
+    char descricao[100]; //A descrição do produto.
+    double preco; // O preço unitário do produto.
+    int estoque; // A quantidade disponível do produto em estoque.
+} Produto;
 
+typedef struct{
+    Produto lista[MAX_PRODUTOS];
+    int contador; //para controlar a quantidade de produtos no vetor 
+} ListaProdutos
 
 void MostrarMenuProdutos();
 
@@ -43,7 +53,7 @@ scanf(" %lf", &novo_produto.preco);
 
 
 printf("Digite a quantidade do produto em estoque:");
-scanf("%d", &novo_produto.estoque);
+scanf("%d", &novo_produto.qt_estoque);
 
 //Botão "cadastrar"
 
@@ -107,5 +117,3 @@ return 0;
 
 
 }
-
-
