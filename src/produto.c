@@ -5,7 +5,9 @@
 #include "produto.h"
 
 
-void MostrarMenuProdutos();
+void MostrarMenuProdutos() {
+
+}
 
 
 
@@ -38,20 +40,17 @@ scanf("%d", &novo_produto.estoque);
 }
 
 void ListarProdutos(){
-
+//Colocar os codigos de todos os produtos ou os nomes? 
 
 }
-
 void ConsultarProduto(){
-
+//fazer a leitura de todo o arquivo dos produtos
 
 }
 
 void RemoverProduto(){
-
+//exclusão 
 
 }
-
-
 
 
