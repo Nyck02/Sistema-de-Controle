@@ -1,14 +1,14 @@
-cat > .gitignore <<EOF
-# Compilados
+# Seu conteúdo atual
 build/
 *.o
 *.exe
 *.so
-
-# Dados (opcional: comente se quiser versionar os CSVs)
-
-# IDEs
-.vscode/
-*.swp
-*~
-EOF
+*.dll
+=======
+# Conteúdo do colega ou da branch remota
+build/
+*.o
+*.exe
+*.so
+*.dll
+data/*.csv
