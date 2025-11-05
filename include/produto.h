@@ -11,7 +11,7 @@ typedef struct {
     int estoque; // A quantidade disponível do produto em estoque.
 } Produto;
 
-//Estrutura do limite do estoque 
+//Estrutura do estoque 
 typedef struct{
     Produto lista[MAX_PRODUTOS];
     int contador; //para controlar a quantidade de produtos no vetor 
@@ -38,6 +38,7 @@ void ConsultarProdutos(ListaProduto *listaP, int codigo);
 void RemoverProduto( ListaProduto *listaP, int codigo);
 
 //Dúvida essa *lista tem que ser com o nome diferente para todos? #########
+//Tem que pegar só o codigo do produto 
 
 //As funções de salvar ou carregar produto no CSV
 void salvarProdutosCSV();
