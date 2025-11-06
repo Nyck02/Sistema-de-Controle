@@ -13,3 +13,4 @@ void inicio_lista(ListaClientes *lista) {
     lista->capacidade = 0;
 }
 
+//
