@@ -15,7 +15,7 @@ typedef struct {
 typedef struct{
     Produto lista[MAX_PRODUTOS];
     int contador; //para controlar a quantidade de produtos no vetor 
-} ListaProdutos
+} ListaProdutos;
 
 //Estrutura da descrição RASCUNHO
 typedef struct{
@@ -30,7 +30,7 @@ typedef struct{
 void MostrarMenuProduto();
 
 
-int AnalisarProduto(int codigo);
+int AnalisarProduto(ListaProduto *listaP int codigo);
 void CadastrarProduto( ListaProduto *listaP, int codigo);
 void ListarProdutos(ListaProduto *listaP);
 void EditarProduto(ListaProduto *listaP, int codigo);
@@ -41,7 +41,7 @@ void RemoverProduto( ListaProduto *listaP, int codigo);
 //Tem que pegar só o codigo do produto 
 
 //As funções de salvar ou carregar produto no CSV
-void salvarProdutosCSV();
-void carregarProdutosCSV();
+void salvarProdutosCSV(ListaProduto *listaP);
+void carregarProdutosCSV(ListaProduto *listaP);
 
 #endif
