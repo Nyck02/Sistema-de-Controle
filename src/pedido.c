@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include pedido.h 
-#include cliente.h
+#include "cliente.h"
 #include produto.h 
 
 // --- ARMAZENAMENTO EM MEMÓRIA ---
@@ -400,3 +400,4 @@ void carregarPedidosCSV() {
     }
     fclose(fItens);
 }
+
