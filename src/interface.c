@@ -42,7 +42,8 @@ void MenuPrincipal(){
             }
         }
 
-    c=getch();
+    c=getch(); //opa
+    
 
     //Movimentos 
 
