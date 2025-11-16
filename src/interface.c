@@ -146,7 +146,7 @@ void MostrarMenuProduto() {
             case 2: Consultar; break;
             case 3: Editar; break;
             case 4: Remover; break; 
-            case 5: break; //voltar ao menu principal
+            case 5: break; //voltar ao menu de  inicio
         }
     }
 
