@@ -1,36 +1,39 @@
 #include <stdio.h> 
-#include <curses.h> 
+#include <ncurses.h> 
 #include <stdlib.h>
 
 
 void MenuPrincipal(){
-
+    
+    
+    int selecao_atual = 0;
+    int total_opcoes = 3;
+    int c; //tecla selecionada
+    int i; 
     initscr(); //para iniciar a tela e o PDCurses 
     keypad(stdscr, TRUE); // para teclas especiais 
     char *opções[] ={ 
 
-        "Cliente",
-        "Produto",
-        "Pedido",
+        "Cliente";
+        "Produto";
+        "Pedido";
 
     }
-    int total_opcoes = 3;
-    int selecao_atual = 0;
-    int c; //tecla selecionada
-    int i; 
-    int escolhaMenuPrincipal;
+
+    
+   
 
     do{
         clear();
 
-        mvprintw(2,3"---MENU PRINCIPAL---");
+        mvprintw(2,3, "---MENU PRINCIPAL---");
 
         //Loop para exibir as opções 
         for(i=0; i<total_opcoes;i++){
 
             //Fazendo a seta > 
             //se a opção for igual a seleção, indica que o usuario está com o cursor(seta) em cima da opção
-            if(i == seleção_atual){
+            if(i == selecao_atual){
                 attron(A_REVERSE); //destaca a opção
                 mvprintw(4 + i, 4, "> %s", opcoes[i]);
                 attroff(A_REVERSE); //tira o destaque 
@@ -66,15 +69,17 @@ void MenuPrincipal(){
 
         //chamando a função selecionada
         switch(selecao_atual){ 
-        case 0: MostrarMenuCliente (), break;
-        case 1: MostrarMenuProduto (), break;
-        case 2: MostrarMenuPedido (), break; 
+        case 0: MostrarMenuCliente (); break;
+        case 1: MostrarMenuProduto (); break;
+        case 2: MostrarMenuPedido (); break; 
         
         }
 
     }
 
+    }
 }
+
 void MostrarMenuProduto() {
 
     //variaveis 
@@ -142,7 +147,7 @@ void MostrarMenuProduto() {
             case 2: Consultar; break;
             case 3: Editar; break;
             case 4: Remover; break; 
-            case 5: break; //voltar ao menu principal
+            case 5: break; //voltar ao menu de  inicio
         }
     }
 
