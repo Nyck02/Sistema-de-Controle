@@ -45,8 +45,7 @@ void MenuPrincipal(){
             }
         }
 
-    c=getch(); //opa
-    
+    c=getch();
 
     //Movimentos 
 
@@ -147,7 +146,7 @@ void MostrarMenuProduto() {
             case 2: Consultar; break;
             case 3: Editar; break;
             case 4: Remover; break; 
-            case 5: break; //voltar ao menu de  inicio
+            case 5: break; //voltar ao menu principal
         }
     }
 
