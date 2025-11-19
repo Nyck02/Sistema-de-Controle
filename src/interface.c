@@ -2,6 +2,16 @@
 #include <ncurses.h> 
 #include <stdlib.h>
 
+// Protótipo das funções, para chamar as funções 
+void MostrarMenuCliente();
+void MostrarMenuProduto(); 
+void MostrarMenuPedido(); 
+// Protótipos das funções do menu de Produto
+void Cadastrar(); 
+void Listar();
+void Consultar();
+void Editar();
+void Remover();
 
 void MenuPrincipal(){
     
@@ -134,9 +144,9 @@ void MostrarMenuProduto() {
        break; 
        case 10: 
        break; 
-    } while(c != 10 || selecao_atual != 4);
-    
-    if( c== 10){
+    } while(c != 10 || selecao_atual != 4) {
+
+        if( c== 10){
         clear();
         refresh();
 
@@ -151,6 +161,50 @@ void MostrarMenuProduto() {
         }
     }
 
-    endwin;
-
+    }
+    
 }
+
+void Cadastrar() {
+    //Chamar uma função especial com opção de cadastro como: "Modelo, Ano de fabricação, Marca, etc"
+clear();
+
+    }
+
+void Listar(){
+    //Apenas exibir todos os produtos cadastrados
+    //E se tiver um produto igual (ex: 4 Notebook Lenovo)
+    //Seguirá alguma ordem? Do maior codigo até o menor, ou por categoria? Poderia ter algum filtro ou ferramenta de pesquisa? 
+clear();
+
+
+    }
+
+void Consultar(){
+    //Exibir a listagem e é possível selecionar o produto e abrir os dados
+clear();
+
+
+    }
+
+void Editar() {
+    //Agora exibe, consulta e tem como editar tudo (Preço, Cadastro, quantidade do estoque, etc)
+clear();
+
+
+    }
+
+void Remover() {
+    //Exibe, consulta e remove 
+clear();
+
+
+    }
+
+
+    refresh();
+    getch();
+    endwin();
+    return 0;
+
+    }
