@@ -16,6 +16,8 @@ void Remover();
 void Cadastrar() {
     //Chamar uma função especial com opção de cadastro como: "Modelo, Ano de fabricação, Marca, etc"
 clear();
+mvprintw(4, 4, "Função Cadastrar... Pressione algo para voltar."); 
+    getch();
 }
 
 void Listar(){
@@ -30,16 +32,22 @@ mvprintw(4, 4, "Função Listar... Pressione algo para voltar.");
 void Consultar(){
     //Exibir a listagem e é possível selecionar o produto e abrir os dados
 clear();
+mvprintw(4, 4, "Função Consultar... Pressione algo para voltar."); 
+    getch();
 }
 
 void Editar() {
     //Agora exibe, consulta e tem como editar tudo (Preço, Cadastro, quantidade do estoque, etc)
 clear();
+    mvprintw(4, 4, "Função Editar ... Pressione algo para voltar."); 
+    getch();
 }
 
 void Remover() {
     //Exibe, consulta e remove 
 clear();
+mvprintw(4, 4, "Função Remover... Pressione algo para voltar."); 
+    getch();
 }
 
 void MostrarMenuPrincipal(){ 
