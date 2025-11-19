@@ -58,5 +58,29 @@ Pedido *pedido = &listaPedidos[posicao];
      return;
    }
 
+ItemPedido novoItem;
+novoItem.pedidoId = pedidoId;
+novoItem.produtoId = produtoId;
+novoItem.qunatidade = qunatidade;
+novoItem.subtotal = quantidade * preo);
+
+pedido->itens[pedido->qtdItens++] = novoItem;
+    pedido->total = calcularTotalPedido(pedido);
+
+    printf("Item cadastrado com sucesso no pedido %d!\n", pedidoId);
+}
+//Função para inserir um novo pedido
+void inserirPedido() {
+  if(qtdPedidos >= MAX_PEDIDOS) {
+        printf("Erro: Limite máximo de pedidos atingido.\n");
+        return;
+    }
+
+    Pedido novoPedido;
+    novoPedido.id = gerarNovoIdPedido();
+    novoPedido.qtdItens = 0;
+    novoPedido.total = 0.0;
+
+
 
 
