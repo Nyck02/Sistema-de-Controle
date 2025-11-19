@@ -14,9 +14,9 @@ void MenuPrincipal(){
     keypad(stdscr, TRUE); // para teclas especiais 
     char *opções[] ={ 
 
-        "Cliente";
-        "Produto";
-        "Pedido";
+        "Cliente",
+        "Produto",
+        "Pedido"
 
     }
 
@@ -94,13 +94,13 @@ void MostrarMenuProduto() {
 
     char *opcoes[] ={
 
-        "Cadastrar";
-        "Listar";
-        "Consultar";
-        "Editar";
-        "Remover";
+        "Cadastrar",
+        "Listar",
+        "Consultar",
+        "Editar",
+        "Remover"
 
-    }
+    };
 
     //estrutura de opções 
 
@@ -122,7 +122,7 @@ void MostrarMenuProduto() {
 
         }
 
-    c=getch; //Capiturei a tecla clicada
+    c=getch(); //Capiturei a tecla clicada
     
     //Movimentos, igual do Menu Principal 
     switch(c) { 
@@ -142,11 +142,11 @@ void MostrarMenuProduto() {
 
         //chamando a função selecionada
         switch(selecao_atual){ 
-            case 0: Cadastrar; break;
-            case 1: Listar; break;
-            case 2: Consultar; break;
-            case 3: Editar; break;
-            case 4: Remover; break; 
+            case 0: Cadastrar(); break;
+            case 1: Listar(); break;
+            case 2: Consultar(); break;
+            case 3: Editar(); break;
+            case 4: Remover(); break; 
             case 5: break; //voltar ao menu de  inicio
         }
     }
