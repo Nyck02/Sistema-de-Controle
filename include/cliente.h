@@ -1,56 +1,67 @@
 #ifndef CLIENTE_H
 #define CLIENTE_H
 
-#include <ncurses.h> 
+#include <ncurses.h>
 
 //pessoa fisica ou juridica
-typedef enum {
+typedef enum{
     IDfisica,
     IDjuridica
-} TipoCliente;
+}TipoCliente;
 
 //estrutura endereco
 typedef struct {
-    char estado[3];     //SIGLA
-    char cidade[50];
-    char cep[10];         //"74000-000"
-    char logradouro[100];
-    char numero[10];      //testar "S/N"
-    char complemento[50]; 
-} Endereco;
+    char estado[4]; //sigla
+    char cidade[51];
+    char cep[11];   //74000-000
+    char logradouro[101];
+    char numero[11]; //testar s/n
+    char complemento[51];
+
+}Endereco;
 
 //estrutura cliente
 typedef struct {
-    int IDcadastro;     //a partir de 01
-    TipoCliente tipo;   //PF ou PJ
-    char nome[100];
-    char ID[20];     //"111.111.111-11" ou CNPJ
-    char telefone[16];      //"(99) 99999-9999"
+    int IDcadastro; //a partir de 01
+    TipoCliente tipo;
+    char nome[101]; //nome ou razao social
+    char ID[21]; //111.222.333.44 ou 11.222.333/001-44
+    char telefone[21]; //(99) 99999-9999
     char email[50];
     Endereco endereco;
-    int quantPedidos;   //listtagem e historico de pedidos
-    int ativo;  //1- ativo; 0- removido
-} Cliente;
+    int quantPedidos;   //listagem e historico
+    int ativo; //1- ativo, 0- removido
+}Cliente;
 
-//lista de clientes na memoria
+//lista clientes na memoria (vetor dinamico)
 typedef struct {
     Cliente *clientes;
     int totalClientes;
     int capacidade;
-} ListaClientes;
+}ListaC;
 
-//MENU CLIENTE 
+//interface
 void menuCliente();
 
-//CONSULTA CLIENTE - codigo ou CPF/CNPJ
-Cliente* buscarCliente(ListaClientes *lista, const char *termoBusca);
+//lista - inicialização e alocação
+void inicializarListaC(ListaC *lista);
+void liberarListaC(ListaC *lista);
+void addClienteLista(ListaC *lista, Cliente novoCliente);
 
-//documento .csv
-ListaClientes* carregarClientesCSV();
-void salvarClientesCSV(ListaClientes *lista);
-void liberarListaClientes(ListaClientes *lista);
-void inicioLista(ListaClientes *lista);
-void adicionarClienteLista(ListaClientes *lista, Cliente novoCliente);
+//crud
+void inserirCliente(ListaC *lista);
+int removerCliente (ListaC *clientes, int IDbusca);
+int editarCliente (ListaC *cliente, int IDbusca);
+void listarClientes(ListaC *lista);
 
+//busca e validação
+Cliente* buscarCliente (ListaC *lista, const char *termoBusca);
+int analisarCliente(ListaC *lista, const char *ID);
+int validarCPF (const char *cpf);
+int validarCNPJ(const char *cnpj);
+
+//persistencia .csv
+ListaC* carregarCcsv();
+void salvarCcsv(ListaC *lista);
 
 #endif
