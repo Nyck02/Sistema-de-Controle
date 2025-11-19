@@ -12,13 +12,13 @@ void MenuPrincipal(){
     int i; 
     initscr(); //para iniciar a tela e o PDCurses 
     keypad(stdscr, TRUE); // para teclas especiais 
-    char *opções[] ={ 
+    char *opcoes[] ={ 
 
         "Cliente",
         "Produto",
         "Pedido"
 
-    }
+    };
 
     
    
@@ -107,17 +107,17 @@ void MostrarMenuProduto() {
     do{
         clear();
 
-        mvprintw(2, 3 "    MODULO PRODUTOS   ");
+        mvprintw(2, 3, "    MODULO PRODUTOS   ");
 
         for(i=0;i<total_opcoes;i++){
             
             if(i == selecao_atual) {
 
                 attron(A_REVERSE);
-                mvprintw(4 + i, 4 " > %s", opcoes[i]);
+                mvprintw(4 + i, 4, " > %s", opcoes[i]);
                 attroff(A_REVERSE);
             } else {
-                mvprintw(4 + i, 4 " %s", opcoes[i]);
+                mvprintw(4 + i, 4, " %s", opcoes[i]);
             }
 
         }
@@ -150,5 +150,7 @@ void MostrarMenuProduto() {
             case 5: break; //voltar ao menu de  inicio
         }
     }
+
+    endwin;
 
 }
