@@ -1,92 +1,98 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-typedef struct {
-int id;
-char nome[50];
-float salario;
-int ativo; // 0 ou 1
-} Registro;
-void imprimir_registro(const Registro *r) {
-printf("ID: %d | Nome: %s | Salário: R$ %.2f | Ativo: %s\n",
-r->id, r->nome, r->salario, r->ativo ? "Sim" : "Não");
+#include<string.h>
+#include<ctype.h>
+#include "/home/tailimasx/Projeto_Final/Sistema-de-Controle/include/cliente.h"
+
+#define tam_lista_inicial 10
+#define ArqClientes "/home/tailimasx/Projeto_Final/Sistema-de-Controle/data/Clientes.csv"
+
+
+//Gerenciar Lista Clientes
+
+
+
+void iniListaC(ListaC *lista){  //define ponteiro como null e contador 0
+    lista->clientes=NULL;
+    lista->totalClientes=0; 
+    lista->capacidade=0;
 }
-int main(void) {
-FILE *fp;
-Registro registros[3] = {
-{1, "Ana Costa", 5500.50, 1},
-{2, "Bruno Silva", 6200.75, 1},
-{3, "Carlos Souza", 4800.00, 0}
-};
-Registro lido;
-// ===== ESCRITA BINÁRIA =====
-fp = fopen("dados.bin", "wb");
-if (fp == NULL) {
-perror("Erro ao criar arquivo binário");
-return EXIT_FAILURE;
+
+void liberarListaC(ListaC *lista){
+    if (lista->clientes != NULL) {
+        free(lista->clientes);  //libera memoria alocada para array clientes
+        lista->clientes = NULL;
+    }
+    lista->clientes =NULL;
+    lista->totalClientes=0;
+    lista->capacidade=0;
 }
-// fwrite: escreve blocos de dados
-// size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream)
-size_t escritos = fwrite(registros, sizeof(Registro), 3, fp);
-printf("Registros escritos: %zu\n\n", escritos);
-fclose(fp);
-// ===== LEITURA BINÁRIA SEQUENCIAL =====
-fp = fopen("dados.bin", "rb");
-if (fp == NULL) {
-perror("Erro ao abrir arquivo binário");
-return EXIT_FAILURE;
-}
-printf("=== Leitura Sequencial ===\n");
-// fread: lê blocos de dados
-// size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream)
-while (fread(&lido, sizeof(Registro), 1, fp) == 1) {
-imprimir_registro(&lido);
+
+void expandirListaC(ListaC *lista){
+    int novaCapacidade = (lista->capacidade==0) ? tam_lista_inicial : lista-> capacidade *2; //capacidade começa com 10 se estiver vazia ou dobra
+
+    Cliente *novo = realloc(lista->clientes,novaCapacidade * sizeof(Cliente));
+    if (!novo){
+        printf("Nao foi possivel alocar a memoria");
+        exit(1);
+    }
+
+    lista->clientes= novo;
+    lista->capacidade=novaCapacidade;
 
 }
-// ===== LEITURA ALEATÓRIA =====
-printf("\n=== Leitura Aleatória (Registro 2) ===\n");
-// Calcular posição do registro 2 (índice 1)
-long posicao = 1 * sizeof(Registro);
-fseek(fp, posicao, SEEK_SET);
-if (fread(&lido, sizeof(Registro), 1, fp) == 1) {
-imprimir_registro(&lido);
+
+void addClienteLista(ListaC *lista, Cliente novoCliente){
+    if (lista-> totalClientes ==lista->capacidade){
+        expandirListaC(lista);
+        lista->clientes[lista->totalClientes++] = novoCliente;
+    }
 }
-// ===== ATUALIZAÇÃO DE REGISTRO =====
-printf("\n=== Atualização do Registro 3 ===\n");
-fclose(fp);
-// Abrir em modo leitura/escrita
-fp = fopen("dados.bin", "r+b");
-if (fp == NULL) {
-perror("Erro ao abrir para atualização");
-return EXIT_FAILURE;
+
+
+//Validar CPF 
+
+
+
+
+
+//Validar CNPJ de acordo com o peso
+
+
+
+
+//verificar se é CPF ou CNPJ e retornar ID
+
+
+
+
+//busca de cliente
+Cliente* buscarCliente(ListaC *lista, const char termoBusca) {
+    for (int i =0; i<lista->totalClientes; i++){
+        if (strcmp(lista->clientes[i].ID, termoBusca)==0){
+            return &lista->clientes[i];
+        }
+    }
+    return NULL;
 }
-// Ir para o registro 3 (índice 2)
-fseek(fp, 2 * sizeof(Registro), SEEK_SET);
-// Ler registro atual
-fread(&lido, sizeof(Registro), 1, fp);
-printf("Antes: ");
-imprimir_registro(&lido);
-// Modificar
-lido.ativo = 1;
-lido.salario = 5000.00;
-// Voltar à posição do registro
-fseek(fp, 2 * sizeof(Registro), SEEK_SET);
-// Escrever de volta
-fwrite(&lido, sizeof(Registro), 1, fp);
-// Verificar atualização
-fseek(fp, 2 * sizeof(Registro), SEEK_SET);
-fread(&lido, sizeof(Registro), 1, fp);
-printf("Depois: ");
-imprimir_registro(&lido);
-fclose(fp);
-// ===== INFORMAÇÕES SOBRE O ARQUIVO =====
-fp = fopen("dados.bin", "rb");
-fseek(fp, 0, SEEK_END);
-long tamanho = ftell(fp);
-printf("\n=== Informações do Arquivo ===\n");
-printf("Tamanho total: %ld bytes\n", tamanho);
-printf("Tamanho do registro: %zu bytes\n", sizeof(Registro));
-printf("Número de registros: %ld\n", tamanho / sizeof(Registro));
-fclose(fp);
-return EXIT_SUCCESS;
+
+
+//inserir cliente
+void inserirCliente(ListaC *lista) {
+    Cliente c;
+    c.IDcadastro=lista->totalClientes +1;
+    c.quantPedidos=0;
+    c.ativo=1;
 }
+
+
+
+//remover cliente
+
+
+
+//listagem dos clientes
+
+//carregar o arquivo .csv
+
+//salvar no csv.
