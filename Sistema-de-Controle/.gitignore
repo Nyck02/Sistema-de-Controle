@@ -1,0 +1,14 @@
+# Seu conteúdo atual
+build/
+*.o
+*.exe
+*.so
+*.dll
+=======
+# Conteúdo do colega ou da branch remota
+build/
+*.o
+*.exe
+*.so
+*.dll
+data/*.csv
