@@ -10,19 +10,19 @@ void MostrarMenuPedido();
 void ListarProdutos(); 
 
 void lerString(int y, int x, int tamanhoMax, char *destino) {
-    echo();          // Mostra o que digita
-    curs_set(1);     // Liga o cursor
+    echo();          
+    curs_set(1);     
     
     
     mvprintw(y, x, "[");
     for(int i=0; i<tamanhoMax; i++) printw("_");
     printw("]");
     
-    move(y, x + 1); // Põe o cursor dentro da caixa
-    getnstr(destino, tamanhoMax); // Lê o texto 
+    move(y, x + 1); 
+    getnstr(destino, tamanhoMax); 
     
-    noecho();        // Esconde teclas depois
-    curs_set(0);     // Desliga cursor
+    noecho();        
+    curs_set(0);     
 }
 
 void MenuPrincipal(){
@@ -182,8 +182,6 @@ void MostrarMenuProduto() {
         
     
 }
-
-
 
 void MostrarMenuCliente() {
     clear();
