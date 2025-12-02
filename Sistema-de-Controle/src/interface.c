@@ -1,27 +1,47 @@
 #include <stdio.h> 
 #include <ncurses.h> 
 #include <stdlib.h>
+#include "produto.h"
+#include "interface.h"
 
+void MostrarMenuProduto();
+void MostrarMenuCliente();
+void MostrarMenuPedido();
+void ListarProdutos(); 
+
+void lerString(int y, int x, int tamanhoMax, char *destino) {
+    echo();          // Mostra o que digita
+    curs_set(1);     // Liga o cursor
+    
+    
+    mvprintw(y, x, "[");
+    for(int i=0; i<tamanhoMax; i++) printw("_");
+    printw("]");
+    
+    move(y, x + 1); // Põe o cursor dentro da caixa
+    getnstr(destino, tamanhoMax); // Lê o texto 
+    
+    noecho();        // Esconde teclas depois
+    curs_set(0);     // Desliga cursor
+}
 
 void MenuPrincipal(){
     
     
     int selecao_atual = 0;
-    int total_opcoes = 3;
+    int total_opcoes = 4;
     int c; //tecla selecionada
     int i; 
-    initscr(); //para iniciar a tela e o PDCurses 
-    keypad(stdscr, TRUE); // para teclas especiais 
-    char *opções[] ={ 
-
-        "Cliente";
-        "Produto";
-        "Pedido";
-
-    }
-
     
-   
+    keypad(stdscr, TRUE); // para teclas especiais 
+    char *opcoes[] ={ 
+
+        "Cliente",
+        "Produto",
+        "Pedido",
+        "Sair"
+
+    };
 
     do{
         clear();
@@ -45,39 +65,43 @@ void MenuPrincipal(){
             }
         }
 
-    c=getch(); //opa
-    
-
-    //Movimentos 
-
-    switch(c) { 
-       case KEY_UP: // pressionando a tecla cima, movimenta para cima 
-       selecao_atual = (selecao_atual == 0) ? total_opcoes -1 : selecao_atual -1;
-       break;
-       case KEY_DOWN: //pressioando a tecla baixo, movimenta para baixo
-       selecao_atual = (selecao_atual == total_opcoes -1) ? 0 : selecao_atual +1;
-       break; 
-       case 10: 
-       break; 
-
-    //dar uma olhada nas outras funções como ESC para adicionar 
-    } while (c != 10 || selecao_atual != 4);
-
-    if( c== 10){
-        clear();
-        refresh();
-
-        //chamando a função selecionada
-        switch(selecao_atual){ 
-        case 0: MostrarMenuCliente (); break;
-        case 1: MostrarMenuProduto (); break;
-        case 2: MostrarMenuPedido (); break; 
+        c=getch();
         
-        }
 
-    }
+        //Movimentos 
 
+        switch(c) { 
+        case KEY_UP: // pressionando a tecla cima, movimenta para cima 
+        selecao_atual = (selecao_atual == 0) ? total_opcoes -1 : selecao_atual -1;
+        break;
+        case KEY_DOWN: //pressioando a tecla baixo, movimenta para baixo
+        selecao_atual = (selecao_atual == total_opcoes -1) ? 0 : selecao_atual +1;
+        break; 
+        case 10: 
+        break; 
+
+        //dar uma olhada nas outras funções como ESC para adicionar 
+        } 
     }
+        while (c != 10 && c != 13);
+
+        if( c== 10 || c == 13){
+            clear();
+            refresh();
+
+            //chamando a função selecionada
+            switch(selecao_atual){ 
+                case 0: MostrarMenuCliente (); break;
+                case 1: MostrarMenuProduto (); break;
+                case 2: MostrarMenuPedido (); break; 
+                case 3: return;
+            
+                }
+                
+            }
+        
+
+    
 }
 
 void MostrarMenuProduto() {
@@ -86,7 +110,7 @@ void MostrarMenuProduto() {
     int i,c; 
     initscr(); //para iniciar a tela e o PDCurses 
     keypad(stdscr, TRUE); // para teclas especiais 
-    int total_opcoes = 5;
+    int total_opcoes = 6;
     int selecao_atual = 0;
 
 
@@ -94,61 +118,83 @@ void MostrarMenuProduto() {
 
     char *opcoes[] ={
 
-        "Cadastrar";
-        "Listar";
-        "Consultar";
-        "Editar";
-        "Remover";
+        "Cadastrar",
+        "Listar",
+        "Consultar",
+        "Editar",
+        "Remover",
+        "Voltar"
 
-    }
+    };
 
     //estrutura de opções 
 
     do{
         clear();
 
-        mvprintw(2, 3 "    MODULO PRODUTOS   ");
+        mvprintw(2, 3, "    MODULO PRODUTOS   ");
 
         for(i=0;i<total_opcoes;i++){
             
             if(i == selecao_atual) {
 
                 attron(A_REVERSE);
-                mvprintw(4 + i, 4 " > %s", opcoes[i]);
+                mvprintw(4 + i, 4, " > %s", opcoes[i]);
                 attroff(A_REVERSE);
             } else {
-                mvprintw(4 + i, 4 " %s", opcoes[i]);
+                mvprintw(4 + i, 4, " %s", opcoes[i]);
             }
 
         }
 
-    c=getch; //Capiturei a tecla clicada
+        c=getch(); //Capiturei a tecla clicada
+        
+        //Movimentos, igual do Menu Principal 
+        switch(c) { 
+            case KEY_UP: // pressionando a tecla cima, movimenta para cima 
+            selecao_atual = (selecao_atual == 0) ? total_opcoes -1 : selecao_atual -1;
+            break;
+            case KEY_DOWN: //pressioando a tecla baixo, movimenta para baixo
+            selecao_atual = (selecao_atual == total_opcoes -1) ? 0 : selecao_atual +1;
+            break; 
+            case 10: 
+            break; 
+        } 
+        
+    }   
     
-    //Movimentos, igual do Menu Principal 
-    switch(c) { 
-       case KEY_UP: // pressionando a tecla cima, movimenta para cima 
-       selecao_atual = (selecao_atual == 0) ? total_opcoes -1 : selecao_atual -1;
-       break;
-       case KEY_DOWN: //pressioando a tecla baixo, movimenta para baixo
-       selecao_atual = (selecao_atual == total_opcoes -1) ? 0 : selecao_atual +1;
-       break; 
-       case 10: 
-       break; 
-    } while(c != 10 || selecao_atual != 4);
+    while (c != 10 && c != 13);
+
+        if( c== 10 || c == 13){
+                clear();
+                refresh();
+
+                //chamando a função selecionada
+                    switch(selecao_atual){ 
+                    case 0: CadastrarProduto(); break;
+                    case 1: ListarProdutos(); break;
+                    case 2: mvprintw(LINES-2, 2, "Em breve..."); getch(); break;
+                    case 3: mvprintw(LINES-2, 2, "Em breve..."); getch(); break;
+                    case 4: mvprintw(LINES-2, 2, "Em breve..."); getch(); break; 
+                    case 5: break; //voltar ao menu de  inicio
+                    }
+                }
+        
     
-    if( c== 10){
-        clear();
-        refresh();
-
-        //chamando a função selecionada
-        switch(selecao_atual){ 
-            case 0: Cadastrar; break;
-            case 1: Listar; break;
-            case 2: Consultar; break;
-            case 3: Editar; break;
-            case 4: Remover; break; 
-            case 5: break; //voltar ao menu de  inicio
-        }
-    }
-
 }
+
+
+
+void MostrarMenuCliente() {
+    clear();
+    mvprintw(10, 10, "Menu Clientes (Em Breve)... Pressione algo.");
+    getch();
+}
+
+void MostrarMenuPedido() {
+    clear();
+    mvprintw(10, 10, "Menu Pedidos (Em Breve)... Pressione algo.");
+    getch();
+}
+
+
