@@ -33,7 +33,7 @@ int qtdPedidos = 0;
     }
     return id;
 }
-
+// Cadastrar um novo pedido
 void inserirPedido() {
     clear();
 
@@ -143,23 +143,240 @@ void inserirPedido() {
     getch();
 }
 
+// Mostra todos os pedidos cadastrados
 void listarPedidos() {
-    // Futura implementação
+    clear();
+
+    if (qtdPedidos == 0) {
+        mvprintw(0, 0, "Nenhum pedido cadastrado.");
+        getch();
+        return;
+    }
+
+    mvprintw(0, 0, "--- Lista de Pedidos ---");
+
+    for (int i = 0; i < qtdPedidos; i++) {
+        mvprintw(i + 2, 0,
+                 "ID: %d | Cliente: %d | Data: %s | Total: %.2f | Itens: %d",
+                 listaPedidos[i].id,
+                 listaPedidos[i].clienteId,
+                 listaPedidos[i].data,
+                 listaPedidos[i].total,
+                 listaPedidos[i].qtdItens);
+    }
+
+    mvprintw(qtdPedidos + 3, 0, "Pressione qualquer tecla...");
+    getch();
 }
 
+// Consulta um pedido pelo ID
 void consultarPedido() {
-    // Futura implementação
+    clear();
+    echo();
+
+    int id;
+    mvprintw(0, 0, "ID do pedido: ");
+    scanw("%d", &id);
+
+    noecho();
+
+    int pos = encontrarPedidoPorId(id);
+
+    if (pos == -1) {
+        mvprintw(2, 0, "Pedido nao encontrado.");
+        getch();
+        return;
+    }
+
+    Pedido p = listaPedidos[pos];
+
+    mvprintw(2, 0, "--- Pedido %d ---", p.id);
+    mvprintw(3, 0, "Cliente: %d", p.clienteId);
+    mvprintw(4, 0, "Data: %s", p.data);
+    mvprintw(5, 0, "Total: %.2f", p.total);
+    mvprintw(6, 0, "Itens: %d", p.qtdItens);
+
+    if (p.qtdItens > 0) {
+        mvprintw(8, 0, "--- Itens ---");
+        for (int i = 0; i < p.qtdItens; i++) {
+            mvprintw(9 + i, 2,
+                     "Produto %d | Qtd: %d | Subtotal: %.2f",
+                     p.itens[i].produtoId,
+                     p.itens[i].quantidade,
+                     p.itens[i].subtotal);
+        }
+    }
+
+    mvprintw(p.qtdItens + 11, 0, "Pressione qualquer tecla...");
+    getch();
 }
 
+// Remove um pedido
 void removerPedido() {
-    // Futura implementação
+    clear();
+    echo();
+
+    int id;
+    mvprintw(0, 0, "ID do pedido para remover: ");
+    scanw("%d", &id);
+
+    noecho();
+
+    int pos = encontrarPedidoPorId(id);
+
+    if (pos == -1) {
+        mvprintw(2, 0, "Pedido nao encontrado.");
+        getch();
+        return;
+    }
+
+    mvprintw(2, 0, "Remover pedido %d? (s/n): ", id);
+    char c = getch();
+
+    if (c != 's' && c != 'S') {
+        mvprintw(4, 0, "Cancelado.");
+        getch();
+        return;
+    }
+
+    // Move os pedidos da frente pra trás
+    for (int i = pos; i < qtdPedidos - 1; i++) {
+        listaPedidos[i] = listaPedidos[i + 1];
+    }
+
+    qtdPedidos--;
+
+    mvprintw(4, 0, "Pedido removido.");
+    getch();
 }
 
-void carregarPedidosCSV() {
-    // Futura implementação
-}
-
+// Salvar pedidos e itens em CSV
 void salvarPedidosCSV() {
-    // Futura implementação
+    FILE *fp = fopen("data/Pedidos.csv", "w");
+    FILE *fi = fopen("data/ItensPedido.csv", "w");
 
+    if (!fp || !fi) {
+        mvprintw(0, 0, "Erro ao salvar arquivos.");
+        getch();
+        return;
+    }
+
+    fprintf(fp, "id,clienteId,data,total\n");
+    fprintf(fi, "pedidoId,produtoId,quantidade,subtotal\n");
+
+    for (int i = 0; i < qtdPedidos; i++) {
+        Pedido p = listaPedidos[i];
+
+        fprintf(fp, "%d,%d,%s,%.2f\n",
+                p.id, p.clienteId, p.data, p.total);
+
+        for (int j = 0; j < p.qtdItens; j++) {
+            ItemPedido it = p.itens[j];
+
+            fprintf(fi, "%d,%d,%d,%.2f\n",
+                    it.pedidoId, it.produtoId, it.quantidade, it.subtotal);
+        }
+    }
+
+    fclose(fp);
+    fclose(fi);
+
+    mvprintw(0, 0, "Dados salvos.");
+    getch();
+}
+
+// Carregar pedidos e itens dos arquivos CSV
+void carregarPedidosCSV() {
+    char linha[512];
+    qtdPedidos = 0;
+
+    FILE *fp = fopen("data/Pedidos.csv", "r");
+    if (!fp) return;
+
+    fgets(linha, sizeof(linha), fp); // pula cabeçalho
+
+    while (fgets(linha, sizeof(linha), fp) && qtdPedidos < MAX_PEDIDOS) {
+        Pedido p;
+        sscanf(linha, "%d,%d,%[^,],%lf",
+               &p.id, &p.clienteId, p.data, &p.total);
+
+        p.qtdItens = 0;
+
+        listaPedidos[qtdPedidos] = p;
+        qtdPedidos++;
+    }
+    fclose(fp);
+
+    FILE *fi = fopen("data/ItensPedido.csv", "r");
+    if (!fi) return;
+
+    fgets(linha, sizeof(linha), fi);
+
+    while (fgets(linha, sizeof(linha), fi)) {
+        ItemPedido it;
+        sscanf(linha, "%d,%d,%d,%lf",
+               &it.pedidoId, &it.produtoId, &it.quantidade, &it.subtotal);
+
+        int idx = encontrarPedidoPorId(it.pedidoId);
+
+        if (idx != -1) {
+            Pedido *p = &listaPedidos[idx];
+
+            if (p->qtdItens < MAX_ITENS_POR_PEDIDO) {
+                p->itens[p->qtdItens] = it;
+                p->qtdItens++;
+            }
+        }
+    }
+
+    fclose(fi);
+
+    //função para analisar os pedidos carregados
+    void analisarPedido() {
+    clear();
+    echo();
+
+    int id;
+    mvprintw(0, 0, "Digite o ID do pedido para análise: ");
+    scanw("%d", &id);
+
+    noecho();
+
+    // Procura o pedido
+    int pos = encontrarPedidoPorId(id);
+
+    if (pos == -1) {
+        mvprintw(2, 0, "Pedido não encontrado.");
+        getch();
+        return;
+    }
+
+    Pedido p = listaPedidos[pos];
+
+    mvprintw(2, 0, "--- ANALISE DO PEDIDO ---");
+    mvprintw(3, 0, "ID do pedido: %d", p.id);
+    mvprintw(4, 0, "Cliente: %d", p.clienteId);
+    mvprintw(5, 0, "Data: %s", p.data);
+    mvprintw(6, 0, "Total: R$ %.2f", p.total);
+    mvprintw(7, 0, "Itens: %d", p.qtdItens);
+
+    // Exibe itens
+    if (p.qtdItens > 0) {
+        mvprintw(9, 0, "--- Itens ---");
+        for (int i = 0; i < p.qtdItens; i++) {
+            mvprintw(10 + i, 2,
+                "Produto %d | Qtd: %d | Subtotal: R$ %.2f",
+                p.itens[i].produtoId,
+                p.itens[i].quantidade,
+                p.itens[i].subtotal
+            );
+        }
+    } else {
+        mvprintw(9, 0, "Nenhum item neste pedido.");
+    }
+
+    mvprintw(p.qtdItens + 12, 0, "Pressione qualquer tecla...");
+    getch();
+}
+ 
 }
