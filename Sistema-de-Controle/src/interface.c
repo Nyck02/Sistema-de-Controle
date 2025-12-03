@@ -173,8 +173,8 @@ void MostrarMenuProduto() {
                     switch(selecao_atual){ 
                     case 0: CadastrarProduto(); break;
                     case 1: ListarProdutos(); break;
-                    case 2: mvprintw(LINES-2, 2, "Em breve..."); getch(); break;
-                    case 3: mvprintw(LINES-2, 2, "Em breve..."); getch(); break;
+                    case 2: ConsultarProduto(); break;
+                    case 3: EditarProduto(); break;
                     case 4: RemoverProduto(); break; 
                     case 5: break; //voltar ao menu de  inicio
                     }

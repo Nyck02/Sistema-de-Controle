@@ -178,15 +178,121 @@ void CarregarProdutosCSV() {
 }
 
 void ConsultarProduto() {
-    mvprintw(LINES-2, 2, "Em breve..."); 
+    char bufferID[10];
+    int idBusca;
+    int posicao = -1; 
+
+    
+    clear();
+    box(stdscr, 0, 0);
+    mvprintw(2, 2, "--- CONSULTAR PRODUTO ---");
+
+    mvprintw(4, 4, "Digite o ID para buscar: ");
+    lerString(4, 29, 5, bufferID);
+    idBusca = atoi(bufferID);
+
+    for (int i = 0; i < totalProdutos; i++) {
+        if (listaProdutos[i].id == idBusca) {
+            posicao = i;
+            break;
+        }
+    }
+
+    
+    if (posicao == -1) {
+        
+        attron(A_BOLD);
+        mvprintw(6, 4, "ERRO: Produto ID %d nao encontrado.", idBusca);
+        attroff(A_BOLD);
+    } else {
+        
+        attron(A_REVERSE);
+        mvprintw(6, 4, " DETALHES DO PRODUTO ");
+        attroff(A_REVERSE);
+
+        mvprintw(8, 6,  "ID:        %d", listaProdutos[posicao].id);
+        mvprintw(9, 6,  "Descricao: %s", listaProdutos[posicao].descricao);
+        mvprintw(10, 6, "Preco:     R$ %.2f", listaProdutos[posicao].preco);
+        
+        
+        mvprintw(11, 6, "Estoque:   %d", listaProdutos[posicao].estoque);
+        
+        if (listaProdutos[posicao].estoque < 5) {
+            attron(A_BOLD); 
+            printw(" (Alerta: estoque baixo, menos de 5 produtos)");
+            attroff(A_BOLD);
+        }
+    }
+
+    mvprintw(14, 4, "Pressione qualquer tecla para voltar...");
     getch();
 }
 
 void EditarProduto() {
-    mvprintw(LINES-2, 2, "Em breve..."); 
+    char bufferID[10];
+    int idBusca;
+    int posicao = -1;
+
+    
+    clear();
+    box(stdscr, 0, 0);
+    mvprintw(2, 2, "--- EDITAR PRODUTO ---");
+
+    
+    mvprintw(4, 4, "Digite o ID para editar: ");
+    lerString(4, 29, 5, bufferID);
+    idBusca = atoi(bufferID);
+
+    for (int i = 0; i < totalProdutos; i++) {
+        if (listaProdutos[i].id == idBusca) {
+            posicao = i;
+            break;
+        }
+    }
+
+    if (posicao == -1) {
+        mvprintw(6, 4, "ERRO: Produto nao encontrado.");
+        getch();
+        return;
+    }
+
+    char bufferDesc[50];
+    char bufferPreco[20];
+    char bufferEstoque[10];
+
+    mvprintw(6, 4, "Produto encontrado: %s", listaProdutos[posicao].descricao);
+    mvprintw(7, 4, "Pressione ENTER para manter o valor atual.");
+
+ 
+    mvprintw(9, 4, "Nova Descricao (Atual: %s): ", listaProdutos[posicao].descricao);
+    lerString(9, 35, 40, bufferDesc);
+    
+  
+    if (strlen(bufferDesc) > 0) {
+        strcpy(listaProdutos[posicao].descricao, bufferDesc);
+    }
+
+  
+    mvprintw(11, 4, "Novo Preco (Atual: %.2f): ", listaProdutos[posicao].preco);
+    lerString(11, 35, 10, bufferPreco);
+    
+    if (strlen(bufferPreco) > 0) {
+        listaProdutos[posicao].preco = atof(bufferPreco);
+    }
+
+
+    mvprintw(13, 4, "Novo Estoque (Atual: %d): ", listaProdutos[posicao].estoque);
+    lerString(13, 35, 5, bufferEstoque);
+
+    if (strlen(bufferEstoque) > 0) {
+        listaProdutos[posicao].estoque = atoi(bufferEstoque);
+    }
+    
+    SalvarProdutosCSV(); 
+    
+    mvprintw(16, 4, "SUCESSO! Dados atualizados.");
     getch();
 }
-
 void RemoverProduto() {
     
     
