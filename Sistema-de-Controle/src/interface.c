@@ -172,12 +172,12 @@ void MostrarMenuProduto() {
 
                 //chamando a função selecionada
                     switch(selecao_atual){ 
-                    case 0: CadastrarProduto(); break;
-                    case 1: ListarProdutos(); break;
-                    case 2: ConsultarProduto(); break;
-                    case 3: EditarProduto(); break;
-                    case 4: RemoverProduto(); break; 
-                    case 5: break; //voltar ao menu de  inicio
+                    case 0: CadastrarProduto(); return MostrarMenuProduto(); break;
+                    case 1: ListarProdutos(); return MostrarMenuProduto(); break;
+                    case 2: ConsultarProduto(); return MostrarMenuProduto(); break;
+                    case 3: EditarProduto(); return MostrarMenuProduto(); break;
+                    case 4: RemoverProduto(); return MostrarMenuProduto(); break; 
+                    case 5: MenuPrincipal(); break; //voltar ao menu de  inicio
                     }
                 }
         

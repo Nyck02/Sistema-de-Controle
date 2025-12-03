@@ -30,11 +30,7 @@ extern int totalPedidos;
 
 // Funções do módulo Pedido
 int gerarIdPedido();
-<<<<<<< HEAD
-int analisarPedido();
-=======
 void analisarPedido(int id);
->>>>>>> d8b7bdc848c7690e638373b5df9f08bb0716444b
 void inserirPedido();
 void removerPedido();
 void consultarPedido();

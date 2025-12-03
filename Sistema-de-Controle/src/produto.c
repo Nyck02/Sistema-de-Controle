@@ -33,17 +33,17 @@ void CadastrarProduto() {
     char bufferID[10], bufferDesc[50], bufferPreco[20], bufferEstoque[10];
 
     echo(); curs_set(1); clear(); box(stdscr, 0, 0);
-    mvprintw(LINES/2, 2, "--- NOVO PRODUTO ---");
+    mvprintw(2, 2, "--- NOVO PRODUTO ---");
 
     
-    mvprintw(LINES/4, 4, "ID: "); 
+    mvprintw(4, 4, "ID: "); 
     lerString(4, 10, 5, bufferID);
     int id = atoi(bufferID);
 
     VerificarIDProduto(id);
 
     if (VerificarIDProduto(id) == 1) {
-        mvprintw(LINES/6, 5, "ERRO: ID %d ja existe! Cadastro cancelado.", id);
+        mvprintw(6, 5, "ERRO: ID %d ja existe! Cadastro cancelado.", id);
         getch(); 
         return; 
     }
