@@ -1,0 +1,155 @@
+* [33mcommit 2882e3fdf6059d60ccadd7c216711d65be56f195[m[33m ([m[1;36mHEAD[m[33m)[m
+[31m|[m Author: Vitor Henrique <vitordeoliveira1127@gmail.com>
+[31m|[m Date:   Wed Nov 19 06:53:24 2025 -0300
+[31m|[m 
+[31m|[m     alterações e correções da interface
+[31m|[m 
+* [33mcommit d6ff71d221ce1c9a61b94d27e488dbc2460665f1[m[33m ([m[1;31morigin/correcao_cliente[m[33m)[m
+[31m|[m Author: tailimasx <contato.tainacandida@gmail.com>
+[31m|[m Date:   Wed Nov 19 20:10:42 2025 -0300
+[31m|[m 
+[31m|[m     Alteração cliente
+[31m|[m 
+* [33mcommit bb3ea21519ba7c3f402b60b9a03f1c41a246810b[m
+[31m|[m Author: tailimasx <contato.tainacandida@gmail.com>
+[31m|[m Date:   Wed Nov 19 03:35:38 2025 -0300
+[31m|[m 
+[31m|[m     esqueleto inicial
+[31m|[m 
+* [33mcommit ab8486ae36c7d7367c5f37c6b629c7a11ff8c344[m
+[31m|[m Author: tailimasx <contato.tainacandida@gmail.com>
+[31m|[m Date:   Wed Nov 19 03:31:38 2025 -0300
+[31m|[m 
+[31m|[m     Correcao de estrutura
+[31m|[m   
+[31m|[m * [33mcommit 5f0cb4f6580bf3258824f44861cd498305c8960b[m[33m ([m[1;32mcorrecao_cliente[m[33m)[m
+[31m|[m [32m|[m Author: tailimasx <contato.tainacandida@gmail.com>
+[31m|[m [32m|[m Date:   Wed Dec 3 01:42:43 2025 -0300
+[31m|[m [32m|[m 
+[31m|[m [32m|[m     atualizacao cliente
+[31m|[m [32m|[m 
+[31m|[m * [33mcommit a043f82a3d82cdc6e4705add1e6db735bf39710e[m
+[31m|[m [32m|[m Author: tailimasx <contato.tainacandida@gmail.com>
+[31m|[m [32m|[m Date:   Wed Nov 19 03:35:38 2025 -0300
+[31m|[m [32m|[m 
+[31m|[m [32m|[m     esqueleto inicial
+[31m|[m [32m|[m 
+[31m|[m * [33mcommit bf40f7e79d59102e03bea713675d7488814a6518[m
+[31m|[m [32m|[m Author: tailimasx <contato.tainacandida@gmail.com>
+[31m|[m [32m|[m Date:   Wed Nov 19 03:31:38 2025 -0300
+[31m|[m [32m|[m 
+[31m|[m [32m|[m     Correcao de estrutura
+[31m|[m [32m|[m 
+[31m|[m * [33mcommit b343d42f4a1b307b54a84d084e666929849e4168[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+[31m|[m [32m|[m Author: Vitor Henrique <vitordeoliveira1127@gmail.com>
+[31m|[m [32m|[m Date:   Wed Nov 19 19:47:47 2025 -0300
+[31m|[m [32m|[m 
+[31m|[m [32m|[m     interface produto
+[31m|[m [32m|[m   
+[31m|[m *   [33mcommit 4939ad20f82805ed88aa4b09fd234f987f9178a9[m
+[31m|[m [33m|[m[34m\[m  Merge: 5dc2f86 73b4e9b
+[31m|[m [33m|[m [34m|[m Author: Vitor Henrique <vitordeoliveira1127@gmail.com>
+[31m|[m [33m|[m [34m|[m Date:   Wed Nov 19 18:00:48 2025 -0300
+[31m|[m [33m|[m [34m|[m 
+[31m|[m [33m|[m [34m|[m     alateraações
+[31m|[m [33m|[m [34m|[m 
+[31m|[m [33m|[m * [33mcommit 73b4e9bbb24707efab1779638de4ce0e92198aae[m
+[31m|[m [33m|[m [34m|[m Author: Nycolas <165157675+Nyck02@users.noreply.github.com>
+[31m|[m [33m|[m [34m|[m Date:   Wed Nov 19 17:15:43 2025 -0300
+[31m|[m [33m|[m [34m|[m 
+[31m|[m [33m|[m [34m|[m     Função para inserir pedido
+[31m|[m [33m|[m [34m|[m 
+[31m|[m [33m|[m * [33mcommit 0521556809e3fd9cb12ec97c64286459fd06ad3e[m
+[31m|[m [33m|[m [34m|[m Author: Nycolas <165157675+Nyck02@users.noreply.github.com>
+[31m|[m [33m|[m [34m|[m Date:   Wed Nov 19 16:56:13 2025 -0300
+[31m|[m [33m|[m [34m|[m 
+[31m|[m [33m|[m [34m|[m     parte da função de pedido completo
+[31m|[m [33m|[m [34m|[m     
+[31m|[m [33m|[m [34m|[m     foi adicionado: procurar pedido, cadastrar item no pedido, calcular, gerar novo pedido
+[31m|[m [33m|[m [34m|[m 
+[31m|[m * [34m|[m [33mcommit 5dc2f86058c31d400f4e3510ff909f5ba683c951[m
+[31m|[m [34m|[m[34m/[m  Author: Vitor Henrique <vitordeoliveira1127@gmail.com>
+[31m|[m [34m|[m   Date:   Wed Nov 19 17:58:37 2025 -0300
+[31m|[m [34m|[m   
+[31m|[m [34m|[m       alterações na interface produto
+[31m|[m [34m|[m 
+[31m|[m * [33mcommit ef43859a8f493a522500f1f8dedf7973aee39782[m
+[31m|[m [34m|[m Author: Vitor Henrique <vitordeoliveira1127@gmail.com>
+[31m|[m [34m|[m Date:   Wed Nov 19 08:38:22 2025 -0300
+[31m|[m [34m|[m 
+[31m|[m [34m|[m     interface produto ainda não funcional
+[31m|[m [34m|[m 
+[31m|[m * [33mcommit b6baa117ada014c3ad7940aa24e8d879bad70e55[m
+[31m|[m [34m|[m Author: Vitor Henrique <vitordeoliveira1127@gmail.com>
+[31m|[m [34m|[m Date:   Wed Nov 19 07:03:41 2025 -0300
+[31m|[m [34m|[m 
+[31m|[m [34m|[m     Correções interface
+[31m|[m [34m|[m 
+[31m|[m * [33mcommit eb9028a56a7249ba55a56906c7da11199f7a0add[m
+[31m|[m[31m/[m  Author: Vitor Henrique <vitordeoliveira1127@gmail.com>
+[31m|[m   Date:   Wed Nov 19 06:53:24 2025 -0300
+[31m|[m   
+[31m|[m       alterações e correções da interface
+[31m|[m 
+* [33mcommit f8ec627af6e9c340dc57b107f88f45589c0b48ad[m[33m ([m[1;32mmain[m[33m)[m
+[34m|[m Author: Nycolas <165157675+Nyck02@users.noreply.github.com>
+[34m|[m Date:   Wed Nov 19 01:06:08 2025 -0300
+[34m|[m 
+[34m|[m     foi Adcionado funções parar encontrar um pedido
+[34m|[m     
+[34m|[m     Refactor pedido.c to include necessary headers and implement functions for finding orders by ID and client ID.
+[34m|[m   
+*   [33mcommit 6c7b5ef8ae8ae93f8d352be96a6fa9229260e9f4[m
+[35m|[m[36m\[m  Merge: 874dff0 a4e8aed
+[35m|[m [36m|[m Author: Nycolas <165157675+Nyck02@users.noreply.github.com>
+[35m|[m [36m|[m Date:   Tue Nov 18 23:28:50 2025 -0300
+[35m|[m [36m|[m 
+[35m|[m [36m|[m     Merge pull request #7 from Nyck02/Nyck02-patch-2
+[35m|[m [36m|[m     
+[35m|[m [36m|[m     Adição de uma nova função para cadastrar os itens do pedido
+[35m|[m [36m|[m 
+[35m|[m * [33mcommit a4e8aed8be2e24c3a6ca3c00b0540e779b0797a3[m[33m ([m[1;31morigin/Nyck02-patch-2[m[33m)[m
+[35m|[m[35m/[m  Author: Nycolas <165157675+Nyck02@users.noreply.github.com>
+[35m|[m   Date:   Tue Nov 18 23:27:47 2025 -0300
+[35m|[m   
+[35m|[m       Adição de uma nova função para cadastrar os itens do pedido
+[35m|[m   
+*   [33mcommit 874dff0ec8e247b677c7e00481868a06e67c6e90[m
+[1;31m|[m[1;32m\[m  Merge: e372f63 a13dc26
+[1;31m|[m [1;32m|[m Author: Vitorhenrique-FdO <vitordeoliveira1127@gmail.com>
+[1;31m|[m [1;32m|[m Date:   Sun Nov 16 16:08:19 2025 -0300
+[1;31m|[m [1;32m|[m 
+[1;31m|[m [1;32m|[m     Merge pull request #6 from Nyck02/feture-interface
+[1;31m|[m [1;32m|[m     
+[1;31m|[m [1;32m|[m     Feture interface
+[1;31m|[m [1;32m|[m   
+[1;31m|[m *   [33mcommit a13dc26481a66bf9f9e6737b35072fcc6904d78f[m[33m ([m[1;31morigin/feture-interface[m[33m)[m
+[1;31m|[m [1;33m|[m[1;31m\[m  Merge: 7ec15e6 e372f63
+[1;31m|[m [1;33m|[m[1;31m/[m  Author: Vitorhenrique-FdO <vitordeoliveira1127@gmail.com>
+[1;31m|[m[1;31m/[m[1;33m|[m   Date:   Sun Nov 16 16:08:11 2025 -0300
+[1;31m|[m [1;33m|[m   
+[1;31m|[m [1;33m|[m       Merge branch 'main' into feture-interface
+[1;31m|[m [1;33m|[m 
+* [1;33m|[m [33mcommit e372f63156f2ceba5eb8f478b3afaa375d8b728b[m
+[1;34m|[m [1;33m|[m Author: Vitor Henrique <vitordeoliveira1127@gmail.com>
+[1;34m|[m [1;33m|[m Date:   Sun Nov 16 16:05:24 2025 -0300
+[1;34m|[m [1;33m|[m 
+[1;34m|[m [1;33m|[m     interface produto
+[1;34m|[m [1;33m|[m   
+[1;34m|[m *   [33mcommit 7ec15e63ab0cb3ff0c882a98d4dde2e2954ea9c2[m
+[1;34m|[m [1;35m|[m[1;34m\[m  Merge: 1e6307f fd10655
+[1;34m|[m [1;35m|[m[1;34m/[m  Author: Vitor Henrique <vitordeoliveira1127@gmail.com>
+[1;34m|[m[1;34m/[m[1;35m|[m   Date:   Sun Nov 16 16:01:05 2025 -0300
+[1;34m|[m [1;35m|[m   
+[1;34m|[m [1;35m|[m       interface produto
+[1;34m|[m [1;35m|[m 
+* [1;35m|[m [33mcommit fd106552ab6880d45144a3443db762facd190f97[m
+[1;36m|[m [1;35m|[m Author: Vitor Henrique <vitordeoliveira1127@gmail.com>
+[1;36m|[m [1;35m|[m Date:   Sun Nov 16 15:53:16 2025 -0300
+[1;36m|[m [1;35m|[m 
+[1;36m|[m [1;35m|[m     Implementacao e correcao na interface.c
+[1;36m|[m [1;35m|[m 
+* [1;35m|[m [33mcommit 8626786af17519dc68cd6c5c5710e091a3a83946[m
+[1;36m|[m [1;35m|[m Author: Vitor Henrique <vitordeoliveira1127@gmail.com>
+[1;36m|[m [1;35m|[m Date:   Sun Nov 16 15:48:22 2025 -0300
+[1;36m|[

@@ -1,6 +1,7 @@
 {
     "configurations": [
         {
+<<<<<<< HEAD
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
@@ -11,6 +12,19 @@
             "cStandard": "c17",
             "cppStandard": "gnu++17",
             "intelliSenseMode": "linux-gcc-x64"
+=======
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:/mingw64/bin/gcc.exe",
+            "intelliSenseMode": "gcc-x64"
+>>>>>>> correcao_cliente
         }
     ],
     "version": 4
