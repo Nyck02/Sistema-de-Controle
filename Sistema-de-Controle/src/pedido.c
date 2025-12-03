@@ -12,6 +12,20 @@
 Pedido listaPedidos[MAX_PEDIDOS];
 int qtdPedidos = 0;
 
+// Função para analisar/buscar um cliente por ID
+static Cliente* analisarCliente(int id) {
+    // Esta função deve consultar a lista de clientes
+    // Por enquanto, retorna NULL como placeholder
+    return NULL;
+}
+
+// Função para analisar/buscar um produto por ID
+static Produto* analisarProduto(int id) {
+    // Esta função deve consultar a lista de produtos
+    // Por enquanto, retorna NULL como placeholder
+    return NULL;
+}
+
 // Procura um pedido pelo ID e retorna a posição dele
  int encontrarPedidoPorId(int id) {
     for (int i = 0; i < qtdPedidos; i++) {
@@ -327,17 +341,11 @@ void carregarPedidosCSV() {
     }
 
     fclose(fi);
+}
 
-    //função para analisar os pedidos carregados
-    void analisarPedido() {
+// Função para analisar os pedidos carregados
+void analisarPedido(int id) {
     clear();
-    echo();
-
-    int id;
-    mvprintw(0, 0, "Digite o ID do pedido para análise: ");
-    scanw("%d", &id);
-
-    noecho();
 
     // Procura o pedido
     int pos = encontrarPedidoPorId(id);
@@ -374,7 +382,5 @@ void carregarPedidosCSV() {
 
     mvprintw(p.qtdItens + 12, 0, "Pressione qualquer tecla...");
     getch();
-}
- 
 }
 

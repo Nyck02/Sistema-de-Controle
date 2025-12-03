@@ -248,7 +248,7 @@ void MostrarMenuPedido() {
     clear();
     refresh();
 
-     switch (selecao_atual) {
+    switch (selecao_atual) {
         case 0: 
         inserirPedido(); 
         break;
