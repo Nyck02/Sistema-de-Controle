@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "produto.h"
 #include "interface.h"
+#include "pedido.h"
 
 void MostrarMenuProduto();
 void MostrarMenuCliente();
@@ -190,9 +191,72 @@ void MostrarMenuCliente() {
 }
 
 void MostrarMenuPedido() {
+
+    int i, c; 
+    keypad(stdscr, TRUE); // Habilita teclas especiais
+
+    int total_opcoes = 6;
+    int selecao_atual = 0;
+
+    char *opcoes[] = {
+        "Cadastrar Pedido",
+        "Listar Pedidos",
+        "Consultar Pedido",
+        "Analisar Pedido",
+        "Remover Pedido",
+        "Voltar"
+    };
+
+    do {
+        clear();
+        mvprintw(2, 3, "      MODULO PEDIDOS      ");
+
+        for (i = 0; i < total_opcoes; i++) {
+
+            if (i == selecao_atual) {
+                attron(A_REVERSE);
+                mvprintw(4 + i, 4, "> %s", opcoes[i]);
+                attroff(A_REVERSE);
+            } else {
+                mvprintw(4 + i, 4, "  %s", opcoes[i]);
+            }
+        }
+
+        c = getch();
+
+        switch (c) {
+            case KEY_UP:
+                selecao_atual = (selecao_atual == 0) 
+                                ? total_opcoes - 1 
+                                : selecao_atual - 1;
+                break;
+
+            case KEY_DOWN:
+                selecao_atual = (selecao_atual == total_opcoes - 1) 
+                                ? 0 
+                                : selecao_atual + 1;
+                break;
+
+            case 10:
+            case 13:
+                break;
+        }
+
+    } while (c != 10 && c != 13);
+
+    // Ação escolhida
     clear();
-    mvprintw(10, 10, "Menu Pedidos (Em Breve)... Pressione algo.");
-    getch();
+    refresh();
+
+    switch (selecao_atual) {
+        case 0: inserirPedido(); break;
+        case 1: listarPedidos(); break;
+        case 2: consultarPedido(); break;
+        case 3: analisarPedido(); break;
+        case 4: removerPedido(); break;
+        case 5: return; // volta ao menu principal
+    }
 }
+
 
 

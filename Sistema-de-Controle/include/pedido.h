@@ -1,39 +1,43 @@
 #ifndef PEDIDO_H
 #define PEDIDO_H
 
-// Definições de tamanho máximo para as estruturas
-#define MAX_PEDIDOS 1000          // Número máximo de pedidos que podem ser armazenados
-#define MAX_ITENS_POR_PEDIDO 50   // Número máximo de itens por pedido
+// Quantidades máximas
+#define MAX_PEDIDOS 1000
+#define MAX_ITENS_POR_PEDIDO 50
 
-/**
- * @struct ItemPedido
- * @brief Representa um item específico dentro de um pedido.
- */
+// Estrutura de Item do Pedido
 typedef struct {
-    int pedidoId;      // ID do pedido ao qual este item pertence
-    int produtoId;     // ID do produto comprado neste item
-    int quantidade;    // Quantidade deste produto no pedido
-    double subtotal;   // Valor total deste item (quantidade * preço do produto)
+    int pedidoId;      // ID do pedido
+    int produtoId;     // ID do produto
+    int quantidade;    // Quantidade comprada
+    double subtotal;   // subtotal = quantidade * preço
 } ItemPedido;
 
-/**
- * @struct Pedido
- * @brief Representa uma ordem de compra feita por um cliente.
- */
+// Estrutura de Pedido
 typedef struct {
-    int id;                        // ID único do pedido (chave primária)
-    int clienteId;                 // ID do cliente que fez o pedido (chave estrangeira para Cliente)
-    char data[11];                 // Data do pedido no formato "dd/mm/aaaa"
-    double total;                  // Valor total do pedido
-    int qtdItens;                  // Quantidade atual de itens neste pedido
-    ItemPedido itens[MAX_ITENS_POR_PEDIDO]; // Vetor de itens associados ao pedido
+    int id;                           // ID do pedido
+    int clienteId;                    // ID do cliente
+    char data[11];                    // dd/mm/aaaa
+    double total;                     // soma dos itens
+    int qtdItens;                     // itens cadastrados
+    ItemPedido itens[MAX_ITENS_POR_PEDIDO];
 } Pedido;
 
-// Declarações das funções relacionadas a pedidos
+// Lista de pedidos (vem do pedido.c)
+extern Pedido listaPedidos[MAX_PEDIDOS];
+extern int totalPedidos;
+
+
+// Funções do módulo Pedido
+int gerarIdPedido();
+int analisarPedido(int id);
 void inserirPedido();
-void listarPedidos();
-void consultarPedido();
 void removerPedido();
+void consultarPedido();
+void listarPedidos();
+void cadastrarItemPedido(int pedidoId, int produtoId, int quantidade, double preco);
+double calcularTotalPedido(Pedido *p);
+void detalharPedido(Pedido *p);
 void carregarPedidosCSV();
 void salvarPedidosCSV();
 
