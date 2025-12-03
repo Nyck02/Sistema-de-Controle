@@ -7,9 +7,6 @@
 #include <string.h>
 
 
-// --- IMPLEMENTAÇÃO (STUBS) ---
-// Estas funções existem apenas para o compilador não reclamar.
-// O responsável pelo módulo "Pedidos" vai preencher isso depois.
 
 // Vetor de pedidos mantido em memória
 Pedido listaPedidos[MAX_PEDIDOS];
@@ -380,3 +377,4 @@ void carregarPedidosCSV() {
 }
  
 }
+
