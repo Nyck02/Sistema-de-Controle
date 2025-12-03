@@ -251,20 +251,20 @@ void MostrarMenuPedido() {
     switch (selecao_atual) {
         case 0: 
         inserirPedido(); 
-        break;
+        return MostrarMenuPedido();break;
 
         case 1: 
         listarPedidos(); 
-        break;
+        return MostrarMenuPedido();break;
         case 2: 
         consultarPedido(); 
-        break;
+        return MostrarMenuPedido();break;
 
         case 3: 
             clear();
             refresh();
             mvprintw(2, 3, "   ANALISAR PEDIDO      \n");
-            mvprintw(3, 3, "-------------------------------\n");
+            mvprintw(3, 3, "\n");
             mvprintw(5, 3, "Digite o ID do Pedido: ");
             refresh();
             
@@ -277,13 +277,13 @@ void MostrarMenuPedido() {
             mvprintw(20, 3, "\nPressione qualquer tecla para voltar...");
             refresh();
             getch();
-            break;
+            return MostrarMenuPedido();break;
 
         case 4: 
         removerPedido(); 
-        break;
+        return MostrarMenuPedido();break;
 
-        case 5: return; // volta ao menu principal
+        case 5: return MenuPrincipal();break; // volta ao menu principal
     }
 }
 
