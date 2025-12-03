@@ -47,7 +47,7 @@ static Produto* analisarProduto(int id) {
 // Cadastrar um novo pedido
 void inserirPedido() {
     clear();
-
+    box(stdscr, 0, 0);
     if (qtdPedidos >= MAX_PEDIDOS) {
         mvprintw(0, 0, "Limite de pedidos atingido. Pressione qualquer tecla...");
         getch();
@@ -157,7 +157,7 @@ void inserirPedido() {
 // Mostra todos os pedidos cadastrados
 void listarPedidos() {
     clear();
-
+    box(stdscr, 0, 0);
     if (qtdPedidos == 0) {
         mvprintw(0, 0, "Nenhum pedido cadastrado.");
         getch();
@@ -184,7 +184,7 @@ void listarPedidos() {
 void consultarPedido() {
     clear();
     echo();
-
+    box(stdscr, 0, 0);
     int id;
     mvprintw(0, 0, "ID do pedido: ");
     scanw("%d", &id);
@@ -226,7 +226,7 @@ void consultarPedido() {
 void removerPedido() {
     clear();
     echo();
-
+    box(stdscr, 0, 0);
     int id;
     mvprintw(0, 0, "ID do pedido para remover: ");
     scanw("%d", &id);
@@ -346,7 +346,7 @@ void carregarPedidosCSV() {
 // Função para analisar os pedidos carregados
 void analisarPedido(int id) {
     clear();
-
+    box(stdscr, 0, 0);
     // Procura o pedido
     int pos = encontrarPedidoPorId(id);
 
