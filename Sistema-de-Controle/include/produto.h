@@ -14,16 +14,16 @@ typedef struct {
 } Produto;
 
 // Protótipos das funções
-// Note que removemos a complexidade de "ListaProduto*"
-void InicializarProdutos();
+void InicializarProdutos(); 
 void CadastrarProduto(); 
 void ListarProdutos();
 void SalvarProdutosCSV();
 void CarregarProdutosCSV();
 
-// Funções extras (Stubs)
-void ConsultarProduto(int id);
-void EditarProduto(int id);
-void RemoverProduto(int id);
+// Funções extras
+void ConsultarProduto();
+void EditarProduto();
+void RemoverProduto();
+int VerificarIDProduto(int idParaVerificar);
 
 #endif

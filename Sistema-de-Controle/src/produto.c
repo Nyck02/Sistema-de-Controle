@@ -11,6 +11,15 @@ static int totalProdutos = 0;
 
 // Funcoes
 
+int VerificarIDProduto(int idParaVerificar) {
+    for (int i = 0; i < totalProdutos; i++) {
+        if (listaProdutos[i].id == idParaVerificar) {
+            return 1; // Encontrou! O ID já existe.
+        }
+    }
+    return 0; // Não encontrou ninguém igual.
+}
+
 void InicializarProdutos() {
     totalProdutos = 0;
     CarregarProdutosCSV(); 
@@ -24,11 +33,20 @@ void CadastrarProduto() {
     char bufferID[10], bufferDesc[50], bufferPreco[20], bufferEstoque[10];
 
     echo(); curs_set(1); clear(); box(stdscr, 0, 0);
-    mvprintw(2, 2, "--- NOVO PRODUTO ---");
+    mvprintw(LINES/2, 2, "--- NOVO PRODUTO ---");
 
-    // Coleta
-    mvprintw(4, 4, "ID: "); lerString(4, 10, 5, bufferID);
+    
+    mvprintw(LINES/4, 4, "ID: "); 
+    lerString(4, 10, 5, bufferID);
     int id = atoi(bufferID);
+
+    VerificarIDProduto(id);
+
+    if (VerificarIDProduto(id) == 1) {
+        mvprintw(LINES/6, 5, "ERRO: ID %d ja existe! Cadastro cancelado.", id);
+        getch(); 
+        return; 
+    }
 
     mvprintw(6, 4, "Desc: "); 
     lerString(6, 10, 40, bufferDesc);
@@ -110,9 +128,8 @@ void SalvarProdutosCSV() {
     // percorrer todos os produtos 
     for (int i = 0; i < totalProdutos; i++) {
         
-        // 4. Escreva a linha formatada.
-        // Cuidado com a ordem: ID (int), Descricao (string), Preco (float), Estoque (int)
-        // Use %.2f no preço para fixar 2 casas decimais (ex: 5.50)
+        
+        // ID (int), Descricao (string), Preco (float), Estoque (int)
         
         fprintf(file, "%d,%s,%.2f,%d\n",
                 listaProdutos[i].id,
@@ -120,64 +137,109 @@ void SalvarProdutosCSV() {
                 listaProdutos[i].preco,
                 listaProdutos[i].estoque);
     }
-
-    // 5. Salve e feche
     fclose(file);
 }
 
 void CarregarProdutosCSV() {
-    // 1. Abra o arquivo "data/Produtos.csv" no modo de leitura "r"
+    
     FILE *file = fopen("data/Produtos.csv", "r"); 
 
-    // 2. Verifique se o arquivo abriu. Se for NULL, saia da função.
+    
     if (file == NULL) {
         return; 
     }
 
     char linha[256]; // Um buffer
 
-    // 3. Pule o cabeçalho (Lê a primeira linha e joga fora)
     fgets(linha, sizeof(linha), file);
 
     totalProdutos = 0;
 
-    //  ler uma linha e não estourar o limite (MAX_PRODUTOS)
     while (fgets(linha, sizeof(linha), file) != NULL && totalProdutos < MAX_PRODUTOS) {
         
         Produto p; // Variável temporária
 
-        // 5. A MÁGICA (Parsing). 
-        // O sscanf lê da 'linha'. A máscara é "%d,%[^,],%f,%d"
-        // Tradução da máscara: Inteiro, Texto-até-virgula, Float, Inteiro
-        // Preencha com as variáveis da struct: id, descricao, preco, estoque
+        // Variáveis da struct: id, descricao, preco, estoque
         
         int lidos = sscanf(linha, "%d,%[^,],%f,%d", 
-                           &p.id,   // Onde guardar o ID? (precisa do &)
-                            p.descricao,   // Onde guardar a Descrição? (vetor não usa &), n'ao seria melhor uma string com espacos?
-                           &p.preco,   // Onde guardar o Preço?
-                           &p.estoque);  // Onde guardar o Estoque?
-                           //ta me parecendo uma gambiarra
+                           &p.id,   // Onde guardar o ID
+                            p.descricao,   // Onde guardar a Descrição
+                           &p.preco,   // Onde guardar o Preço
+                           &p.estoque);  // Onde guardar o Estoque
+                           
 
-        // 6. Se leu exatamente 4 campos, salva no vetor oficial
+        // Se le exatamente 4 campos, salva no vetor oficial
         if (lidos == 4) {
             listaProdutos[totalProdutos] = p;
             totalProdutos++; // Incrementa para o próximo
         }
     }
-
-    // 7. Feche o arquivo para não dar leak
     fclose(file);
 }
 
-// Funções obrigatórias para bater com o produto.h
-void ConsultarProduto(int id) {
-    (void)id; // Truque para o compilador não reclamar de variável não usada
+void ConsultarProduto() {
+    mvprintw(LINES-2, 2, "Em breve..."); 
+    getch();
 }
 
-void EditarProduto(int id) {
-    (void)id;
+void EditarProduto() {
+    mvprintw(LINES-2, 2, "Em breve..."); 
+    getch();
 }
 
-void RemoverProduto(int id) {
-    (void)id;
+void RemoverProduto() {
+    
+    
+    char bufferID[10];
+    int posicao_do_alvo = -1; 
+
+    
+    clear();
+    box(stdscr, 0, 0);
+    mvprintw(2, 2, "--- REMOVER PRODUTO ---");
+    
+    mvprintw(4, 4, "Digite o ID para excluir: "); 
+    lerString(4, 30, 5, bufferID);
+    int idExc = atoi(bufferID);
+
+    for (int i = 0; i < totalProdutos; i++) {
+        if (listaProdutos[i].id == idExc) {
+            posicao_do_alvo = i; // guardar o endereço 
+            break; 
+        }
+    }
+
+    
+    if (posicao_do_alvo == -1) {
+        attron(A_BOLD);
+        mvprintw(6, 4, "ERRO: ID %d nao encontrado!", idExc);
+        attroff(A_BOLD);
+        getch(); 
+        return; 
+    }
+    
+    
+    mvprintw(6, 4, "Encontrado: %s", listaProdutos[posicao_do_alvo].descricao);
+    mvprintw(7, 4, "Tem certeza que deseja excluir? [S/N]");
+    int confirmacao = getch();
+
+    if (confirmacao == 's' || confirmacao == 'S') {
+        
+        for (int j = posicao_do_alvo; j < totalProdutos - 1; j++) {
+            listaProdutos[j] = listaProdutos[j+1];
+        }
+
+        
+        totalProdutos--; 
+        
+        refresh();
+        
+        SalvarProdutosCSV();
+        
+        mvprintw(11, 4, "Produto removido com SUCESSO.");
+        return;
+    } else {
+        mvprintw(9, 4, "Operacao cancelada.");
+    }
+    getch();
 }

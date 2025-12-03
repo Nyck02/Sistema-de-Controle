@@ -175,7 +175,7 @@ void MostrarMenuProduto() {
                     case 1: ListarProdutos(); break;
                     case 2: mvprintw(LINES-2, 2, "Em breve..."); getch(); break;
                     case 3: mvprintw(LINES-2, 2, "Em breve..."); getch(); break;
-                    case 4: mvprintw(LINES-2, 2, "Em breve..."); getch(); break; 
+                    case 4: RemoverProduto(); break; 
                     case 5: break; //voltar ao menu de  inicio
                     }
                 }

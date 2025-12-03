@@ -1,10 +1,8 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
-// Protótipo da função principal da interface
+// Protótipo da função de interface (ESSENCIAL PARA NÃO DAR CRASH)
 void MenuPrincipal();
-
-// Protótipo da função ajudante (caso precise usar em outros lugares)
 void lerString(int y, int x, int tamanhoMax, char *destino);
 
 #endif
