@@ -5,7 +5,7 @@
 #include "cliente.h"
 
 #define tam_lista_inicial 10
-//#define ArqClientes "/home/tailimasx/Projeto_Final/Sistema-de-Controle/data/Clientes.csv"
+#define CLIENTES_CSV "clientes.csv"
 
 
 
@@ -39,13 +39,13 @@ static void expandirListaC(ListaC *lista){
 
 }
 //adicionar cliente ao final da lista
-void addClienteLista(ListaC *lista, Cliente novoCliente){
-    if (lista-> totalClientes ==lista->capacidade){ // se nao couber vai expandir o array
+void addClienteLista(ListaC *lista, Cliente novoCliente){ 
+    if (lista->totalClientes == lista->capacidade){ 
         expandirListaC(lista);
-        //struct cliente copiada para proxima posicao livre do array
-        lista->clientes[lista->totalClientes++] = novoCliente;
     }
+    lista->clientes[lista->totalClientes++] = novoCliente;
 }
+
 
 
 //Validar CPF 
@@ -65,7 +65,7 @@ int validarCPF(const char *cpf) {
     //  rejeicao de numero igual tipo 0000000... e invalidar
     
     int todosIguais=1;
-    for (int i=1; i>11;i++)
+    for (int i = 1; i< 11; i++)
         if(digitos[i]!=digitos[0]){
             todosIguais=0;
             break;
@@ -93,7 +93,7 @@ int validarCNPJ(const char *cnpj){
 
     for(int i=0;cnpj[i]!='\0' && j<14;i++){
         if (isdigit((unsigned char)cnpj[i])){
-            digitos[j++]=cnpj-'0';
+            digitos[j++]=cnpj[i]-'0';
         }
     }
 
@@ -133,13 +133,19 @@ int validarCNPJ(const char *cnpj){
 //verificar se é CPF ou CNPJ e retornar ID
 int analisarCliente(const char *ID) {
     int qtdDig = 0;
-    for (int i = 0; ID[i]!='\0';i++)
-        if(qtdDig==11)
-            return validarCPF(ID);
-        if(qtdDig==14)
-            return validarCNPJ(ID);
+
+    for (int i = 0; ID[i] != '\0'; i++)
+        if (isdigit((unsigned char)ID[i]))
+            qtdDig++;
+
+    if (qtdDig == 11)
+        return validarCPF(ID);
+
+    if (qtdDig == 14)
+        return validarCNPJ(ID);
     return 0;
 }
+
 
 
 
@@ -184,7 +190,77 @@ ListaC* carregarCcsv(const char *f){
     return NULL;
 }
 
-//void salvarCcsv(ListaC *1, const char *f){}
+
+void salvarClientesCSV(ListaC *lista) {
+    FILE *arq = fopen(CLIENTES_CSV, "w");
+    if (!arq) {
+        printf("Erro ao abrir %s para escrita.\n", CLIENTES_CSV);
+        return;
+    }
+
+    // Cabeçalho (opcional)
+    fprintf(arq, "IDcadastro;Nome;Documento;Ativo\n");
+
+    for (int i = 0; i < lista->totalClientes; i++) {
+        Cliente *c = &lista->clientes[i];
+        fprintf(arq, "%d;%s;%s;%d\n",
+                c->IDcadastro,
+                c->nome,
+                c->ID,
+                c->ativo);
+    }
+
+    fclose(arq);
+}
+
+void appendClienteCSV(Cliente *c) {//vai adicionar uma linha nova sem mexer no q esta salvo
+    FILE *arq = fopen(CLIENTES_CSV, "a");
+
+    if (!arq) {
+        printf("Erro ao abrir %s para adicionar.\n", CLIENTES_CSV);
+        return;
+    }
+
+    fprintf(arq, "%d;%s;%s;%d\n",
+            c->IDcadastro,
+            c->nome,
+            c->ID,
+            c->ativo);
+
+    fclose(arq);
+}
+
+void carregarClientesCSV(ListaC *lista) {
+    FILE *arq = fopen(CLIENTES_CSV, "r");
+
+    if (!arq) {
+        //lista vazia
+        lista->totalClientes = 0;
+        return;
+    }
+
+    char linha[256];
+    fgets(linha, 256, arq); // ignorar cabeçalho
+
+    lista->totalClientes = 0;
+
+    while (fgets(linha, 256, arq)) {
+        Cliente c;
+        sscanf(linha, "%d;%99[^;];%19[^;];%d",
+               &c.IDcadastro,
+               c.nome,
+               c.ID,
+               &c.ativo);
+
+        lista->clientes[lista->totalClientes++] = c;
+    }
+
+    fclose(arq);
+}
+
+void atualizarClienteCSV(ListaC *lista) { //atualiza cadastro existente
+    salvarClientesCSV(lista);
+}
 
 
 

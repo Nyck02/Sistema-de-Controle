@@ -9,6 +9,9 @@ void mostrarMenuPedidos();
 
 // Stubs temporários para evitar erros de ligação; implementar módulos reais depois.
 void mostrarMenuClientes() {
+    #include "cliente.h"
+    #include "cliente.c"
+    #include "interface.c"
     // TODO: implementar o menu de clientes (ncurses)
 }
 

@@ -1,6 +1,9 @@
 #include <stdio.h> 
 #include <ncurses.h> 
 #include <stdlib.h>
+#include "cliente.h"
+
+extern ListaC listaClientesGlobal; // definida no main
 
 // Protótipo das funções, para chamar as funções 
 void MostrarMenuCliente();
@@ -227,8 +230,154 @@ int main() {
     
 }
 
+void inputText(int y, int x, char *buffer, int max) {
+    mvprintw(y, x, "");
+    echo();
+    getnstr(buffer, max -1);
+    noecho();
+}
 
 void MostrarMenuCliente (){
+    int selecao=0;
+    int tecla;
+    int total_opcoes=5;
 
+    char *opcoes[]={
+        "Cadastrar Cliente",
+        "Listar Clientes",
+        "Consultar Cliente",
+        "Editar Cliente",
+        "Remover Cliente"
+    };
+
+    do {
+        clear();
+        mvprintw(2,3, "--- MENU CLIENTE ---");
+        mvprintw(10,3, "Pressione ESC para voltar");
+
+        for(int i=0; i<total_opcoes;i++){
+            if(i==selecao){
+                attron(A_REVERSE);
+                mvprintw(4+i,4,"> %s", opcoes[i]);
+                attroff(A_REVERSE);
+
+            } else {
+                mvprintw(4+i,4, "%s", opcoes[i]);
+            }
+        }
+
+        tecla=getch();
+
+        switch(tecla){
+            case KEY_UP:
+                selecao =(selecao==0)? total_opcoes -1: selecao-1;
+                break;
+
+            case KEY_DOWN:
+                selecao=(selecao==total_opcoes-1)? 0: selecao+1;
+                break;
+
+            case 27: //tecla ESC
+                return;
+
+            case 10: //tecla ENTER
+                clear();
+
+                if(selecao==0){//selecao de cadastro
+                    Cliente c;
+                    memset(&c, 0, sizeof(c));
+                    c.ativo = 1;
+                    c.IDcadastro = listaClientesGlobal.totalClientes + 1;
+
+                    mvprintw(2,2, "Nome: ");
+                    inputText(2,10, c.nome, 100);
+
+                    mvprintw(3,2, "CPF/CNPJ: ");
+                    inputText(3,14, c.ID, 20);
+
+                    if(!analisarCliente(c.ID)){
+                        mvprintw(5,2, "Documento Invalido");
+                    } else {
+                        addClienteLista(&listaClientesGlobal, c);
+                        mvprintw(5,2, "Cliente cadastrado!");
+                    }
+                    getch();
+                }
+
+                else if (selecao==1){ //selecao de lista
+                    mvprintw(1, 2, "Lista de Clientes:");
+                    int y = 3;
+
+                    for (int i = 0; i < listaClientesGlobal.totalClientes; i++){
+                        Cliente *c = &listaClientesGlobal.clientes[i];
+
+                        if(c->ativo){
+                            mvprintw(y++,2, "%d - %s - %s",
+                                     c->IDcadastro, c->nome, c->ID);
+                        }
+                    }
+                    mvprintw(20,2, "Pressione qualquer tecla.");
+                    getch();
+                }
+
+                else if (selecao==2){ //selecao de consulta
+                    char doc[30];
+
+                    mvprintw(2,2, "CPF/CNPJ: ");
+                    inputText(2,14, doc, 30);
+
+                    Cliente *c = buscarCliente(&listaClientesGlobal, doc);
+
+                    if(c && c->ativo){
+                        mvprintw(4,2, "Nome: %s", c->nome);
+                        mvprintw(5,2, "ID: %s", c->ID);
+                    } else {
+                        mvprintw(4,2, "Nao encontrado.");
+                    }
+                    getch();
+                }
+
+                
+                else if (selecao==3){//selecao p editar
+                    char doc[30];
+
+                    mvprintw(2,2, "CPF/CNPJ p/ editar: ");
+                    inputText(2,25, doc, 30);
+
+                    Cliente *c = buscarCliente(&listaClientesGlobal, doc);
+
+                    if(c && c->ativo){
+                        mvprintw(4,2, "Novo nome: ");
+                        inputText(4,15, c->nome, 100);
+
+                        mvprintw(6,2, "Alterado");
+                    } else {
+                        mvprintw(4,2, "Nao encontrado.");
+                    }
+                    getch();
+                }
+
+                else if (selecao==4){//selecao para reomver
+                    char doc[30];
+
+                    mvprintw(2,2, "CPF/CNPJ p/ remover: ");
+                    inputText(2,26, doc, 30);
+
+                    Cliente *c = buscarCliente(&listaClientesGlobal, doc);
+
+                    if(c && c->ativo){
+                        c->ativo = 0;
+                        mvprintw(4,2, "Removido!");
+                    } else {
+                        mvprintw(4,2, "Nao encontrado.");
+                    }
+                    getch();
+                }
+
+                break;
+        }
+
+    } while(1);
 }
+
 
