@@ -13,6 +13,14 @@ void Consultar();
 void Editar();
 void Remover();
 
+//Prototipo das funcoes, menu cliente
+void CadastrarCliente();
+void ListaCliente();
+void ConsultaCliente();
+void EditarCliente();
+void RemoverCliente();
+
+
 void Cadastrar() {
     //Chamar uma função especial com opção de cadastro como: "Modelo, Ano de fabricação, Marca, etc"
 clear();
@@ -218,3 +226,9 @@ int main() {
     return 0;
     
 }
+
+
+void MostrarMenuCliente (){
+
+}
+

@@ -2,6 +2,7 @@
 #define CLIENTE_H
 
 #include <ncurses.h>
+#include <stddef.h>
 
 //pessoa fisica ou juridica
 typedef enum{
@@ -56,12 +57,12 @@ void listarClientes(ListaC *lista);
 
 //busca e validação
 Cliente* buscarCliente (ListaC *lista, const char *termoBusca);
-int analisarCliente(ListaC *lista, const char *ID);
+int analisarCliente(const char *ID);
 int validarCPF (const char *cpf);
 int validarCNPJ(const char *cnpj);
 
 //persistencia .csv
-ListaC* carregarCcsv();
-void salvarCcsv(ListaC *lista);
+ListaC* carregarCcsv(const char *filepath);
+void salvarCcsv(ListaC *lista, const char *filepath);
 
 #endif
