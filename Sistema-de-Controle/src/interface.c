@@ -249,11 +249,40 @@ void MostrarMenuPedido() {
     refresh();
 
     switch (selecao_atual) {
-        case 0: inserirPedido(); break;
-        case 1: listarPedidos(); break;
-        case 2: consultarPedido(); break;
-        case 3: analisarPedido(); break;
-        case 4: removerPedido(); break;
+        case 0: 
+        inserirPedido(); 
+        break;
+
+        case 1: 
+        listarPedidos(); 
+        break;
+        case 2: 
+        consultarPedido(); 
+        break;
+
+        case 3: 
+            clear();
+            refresh();
+            mvprintw(2, 3, "   ANALISAR PEDIDO      \n");
+            mvprintw(3, 3, "-------------------------------\n");
+            mvprintw(5, 3, "Digite o ID do Pedido: ");
+            refresh();
+            
+            echo();
+            int idAnalise;
+            scanw("%d", &idAnalise);  // 1. Lê o ID do teclado
+            noecho();
+            analisarPedido(idAnalise); // 2. Passa o ID para a função
+            
+            mvprintw(20, 3, "\nPressione qualquer tecla para voltar...");
+            refresh();
+            getch();
+            break;
+
+        case 4: 
+        removerPedido(); 
+        break;
+
         case 5: return; // volta ao menu principal
     }
 }
