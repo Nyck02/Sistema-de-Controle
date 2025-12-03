@@ -293,6 +293,7 @@ void EditarProduto() {
     mvprintw(16, 4, "SUCESSO! Dados atualizados.");
     getch();
 }
+
 void RemoverProduto() {
     
     
